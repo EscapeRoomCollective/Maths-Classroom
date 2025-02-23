@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Interactive Map</title>
+</head>
+<body>
+    <div class="game-container">
+    <div id="selection-screen">
+        <p>You are trapped in a typical-looking Maths classroom. You see some <strong>desks</strong> arranged in a strange layout, a <strong>projector</strong> and <strong>projector screen</strong>, an overflowing <strong>waste bin</strong>, and a locked <strong>cabinet</strong> in the corner. There is also a large locked <strong>door</strong> to one side.</p>
+    <div class="image-container">
+        <img src="icon.png" id="hotspot1" class="hotspot" onclick="visitLocation('Projector', 'hotspot1')" alt="Projector">
+        <img src="icon.png" id="hotspot2" class="hotspot" onclick="visitLocation('Screen', 'hotspot2')" alt="Screen">
+        <img src="icon.png" id="hotspot3" class="hotspot" onclick="visitLocation('Door', 'hotspot3')" alt="Door">
+        <img src="icon.png" id="hotspot4" class="hotspot" onclick="visitLocation('Bin', 'hotspot4')" alt="Bin">
+        <img src="icon.png" id="hotspot5" class="hotspot" onclick="visitLocation('Cabinet', 'hotspot5')" alt="Cabinet">
+        <img src="icon.png" id="hotspot6" class="hotspot" onclick="visitLocation('Desks', 'hotspot6')" alt="Desks">
+    </div>
+    </div>
+    <div id="Projector" class="hidden">
+        <p>The projector is currently off.</p>
+        <button onclick="turnOnProjector()">Turn on Projector?</button>
+        <button onclick="returnToSelection('Projector')">Return to Room</button>
+    </div>
+    <div id="Projector-complete" class="hidden">
+        <p>The projector whirrs into life and projects some symbols towards the screen.</p>
+        <button onclick="returnToSelection('Projector-complete')">Return to Room</button>
+    </div>
+
+    <div id="Screen" class="hidden">
+        <p>The screen displays nothing, since the projector is off.</p>
+        <img src="Screen.jpg" alt="blank screen">
+        <button onclick="liftUpScreen('Screen')">Lift up Screen?</button>
+        <button onclick="returnToSelection('Screen')">Return to Room</button>
+    </div>
+    <div id="Screen-On" class="hidden">
+        <p>Now that the projector is on, the screen displays some half-written symbols. The rest of the symbols must be somewhere...</p>
+        <img src="Screen-On.jpg" alt="screen with symbols">
+        <button onclick="liftUpScreen('Screen-On')">Lift up Screen?</button>
+        <button onclick="returnToSelection('Screen-On')">Return to Room</button>
+    </div>
+    <div id="Screen-Up" class="hidden">
+        <p>Behind the screen you see some half-finished symbols written on the wall. The rest of the symbols must be somewhere...</p>
+        <img src="Screen-Up.jpg" alt="symbols on wall">
+        <button onclick="returnToSelection('Screen-Up')">Return to Room</button>
+    </div>
+    <div id="Screen-On-Up" class="hidden">
+        <p>There are lines written on the wall, combining with the line from the projector, spelling out a code in four colours!</p>
+        <img src="Screen-On-Up.jpg" alt="revealed numbers">
+        <button onclick="returnToSelection('Screen-On-Up')">Return to Room</button>
+    </div>
+
+    <div id="Door" class="hidden">
+        <p>The door is locked and next to it, you spot an unusual keypad.</p>
+        <img src="Keypad-wide.jpg" alt="keypad">
+        <input type="text" id="answer2" placeholder="Enter code">
+        <button onclick="checkAnswer('answer2', '5843', 'Door')">Submit</button>
+        <button onclick="returnToSelection('Door')">Return to Room</button>
+    </div>
+    <div id="Door-complete" class="hidden">
+        <p>The door swings open and you stroll out into the sunlight, free at last!</p>
+        <p><strong>Congratulations! You have completed the game!</strong></p>
+    </div>
+
+    <div id="Bin" class="hidden">
+        <p>Beneath some pieces of scrunched up paper, you spot <strong>2 AA batteries.</strong></p>
+        <button onclick="pickUpBatteries()">Pick Up Batteries?</button>
+        <button onclick="returnToSelection('Bin')">Return to Room</button>
+    </div>
+
+    <div id="Cabinet" class="hidden">
+        <p>The cabinet is locked with a 3 digit padlock.</p>
+        <img src="Cabinet-Lock.jpg" alt="'padlock">
+        <input type="text" id="answer1" placeholder="Enter code">
+        <button onclick="checkAnswer('answer1', '101', 'Cabinet')">Submit</button>
+        <button onclick="returnToSelection('Cabinet')">Return to Map</button>
+    </div>
+    <div id="Cabinet-complete" class="hidden">
+        <p>The door swings open, revealing a rather bare cabinet, with a <strong>Projector Remote</strong> on the middle shelf.</p>
+        <button onclick="pickUpRemote()">Pick Up Remote?</button>
+        <button onclick="returnToSelection('Cabinet-complete')">Return to Map</button>
+    </div>
+
+    <div id="Desks" class="hidden">
+        <p>The desks are arranged in an unusual pattern.</p>
+        <img src="Desks.jpg" alt="desk in a pattern">
+        <button onclick="returnToSelection('Desks')">Return to Room</button>
+    </div>
+    </div>
+</body>
+<script src="javascript.js"></script>
+</html>
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Escape Room Puzzle</title>
+
+</head>
+
+<body>
+    <div class="game-container">
+        <p id="puzzle1">You are trapped in a prison cell, handcuffed to the bed by a <strong>four-digit padlock</strong>. To your left, you see a grimey mirror, and on the wall to your right the word 'LOSE' etched in vertical and horizontal lines.</p>
+        <input type="text" id="answer1" placeholder="What's the code?">
+        <button onclick="checkAnswer('answer1', '3201', 'puzzle2')">Submit</button>
+
+        <p id="puzzle2" class="hidden">You remove the handcuffs and walk to the cell door. A three-digit code this time! Peering through the bars, you spot a brochure on the guard's desk: "We've got a number of items inside! Weights, Smartphones, Artworks, and much more!"</p>
+        <input type="text" id="answer2" class="hidden" placeholder="What's the code?">
+        <button class="hidden" onclick="checkAnswer('answer2', '812', 'puzzle3')">Submit</button>
+
+        <p id="puzzle3" class="hidden">You quietly unlock the cell door and escape to freedom! Congratulations!</p>
+    </div>
+</body>
+<script src="javascript.js"></script>
+</html>
+-->
